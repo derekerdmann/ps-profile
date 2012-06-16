@@ -68,3 +68,5 @@ function shorten-path([string] $path) {
 # Load posh-git example profile
 #. 'K:\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1'
 
+# Fix "not fully-functional" warning in Git. May break HG color?
+$env:TERM="msys"
