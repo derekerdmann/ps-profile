@@ -4,11 +4,9 @@ Push-Location (Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
 # If module is installed in a default location ($env:PSModulePath),
 # use this instead (see about_Modules for more information):
 Import-Module posh-git
+Import-Module posh-hg
 
 Pop-Location
-
-# Load posh-hg example profile
-. 'K:\Documents\WindowsPowerShell\Modules\posh-hg\profile.example.ps1'
 
 # Used as a grep replacement
 Import-Module find-string
