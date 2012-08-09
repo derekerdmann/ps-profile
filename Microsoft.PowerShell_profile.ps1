@@ -8,7 +8,7 @@ Import-Module posh-git
 Pop-Location
 
 # Load posh-hg example profile
-. 'K:\Documents\WindowsPowerShell\Modules\posh-hg\profile.example.ps1'
+. '~\Documents\WindowsPowerShell\Modules\posh-hg\profile.example.ps1'
 
 # Used as a grep replacement
 Import-Module find-string
@@ -32,7 +32,8 @@ function prompt {
     $chost = [ConsoleColor]::Green 
     $cloc = [ConsoleColor]::White 
 
-    write-host (get-drive (pwd).Path) -n -f $cdrive
+    $drive = (get-drive (pwd).Path)
+    write-host $drive -n -f $cdrive
     write-host (shorten-path (pwd).Path) -n -f $cloc 
 
     Write-VcsStatus
@@ -46,6 +47,8 @@ function prompt {
 function get-drive( [string] $path ) {
     if( $path.StartsWith( $HOME ) ) {
         return "~"
+    } elseif( $path.StartsWith( "Microsoft.PowerShell.Core" ) ){
+        return "\\"
     } else {
         return $path.split( "\" )[0]
     }
@@ -64,7 +67,3 @@ function shorten-path([string] $path) {
     # handle paths starting with \\ and . correctly 
     return ($loc -replace '\\(\.?)([^\\])[^\\]*(?=\\)','\$1$2') 
 }
-
-# Load posh-git example profile
-#. 'K:\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1'
-
