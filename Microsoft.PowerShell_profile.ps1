@@ -4,11 +4,9 @@ Push-Location (Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
 # If module is installed in a default location ($env:PSModulePath),
 # use this instead (see about_Modules for more information):
 Import-Module posh-git
+Import-Module posh-hg
 
 Pop-Location
-
-# Load posh-hg example profile
-. '~\Documents\WindowsPowerShell\Modules\posh-hg\profile.example.ps1'
 
 # Used as a grep replacement
 Import-Module find-string
@@ -67,3 +65,6 @@ function shorten-path([string] $path) {
     # handle paths starting with \\ and . correctly 
     return ($loc -replace '\\(\.?)([^\\])[^\\]*(?=\\)','\$1$2') 
 }
+
+# Fix "not fully-functional" warning in Git. May break HG color?
+$env:TERM="msys"
