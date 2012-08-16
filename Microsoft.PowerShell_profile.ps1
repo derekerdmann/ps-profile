@@ -68,3 +68,20 @@ function shorten-path([string] $path) {
 
 # Fix "not fully-functional" warning in Git. May break HG color?
 $env:TERM="msys"
+
+# function for md5 hashes
+# doesn't work with relative paths; TODO: fix
+function md5sum($file)
+{
+    try
+    {
+        $md5 = [System.Security.Cryptography.MD5]::Create()
+        $file = [System.IO.File]::OpenRead($file)
+        $hash = $md5.ComputeHash($file);
+        [System.BitConverter]::ToString($hash).Replace('-', '')
+    }
+    finally
+    {
+        if ($md5) { $md5.dispose() }
+    }
+}
